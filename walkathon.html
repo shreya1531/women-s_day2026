@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<!-- Liquid desktop layout -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Women’s Day Walkathon 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="walkathon.css">
+
+<style>
+.hidden{display:none}
+.msg{
+color:#ff2f7d;
+margin-top:10px;
+font-weight:600;
+text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+    <a href="index.html" class="back-home">← Home</a>
+
+
+<header class="hero">
+<div class="overlay fade">
+
+<h1>Women’s Day Walkathon 2026</h1>
+<p class="tagline">Walking Together for Her Health, Our Future</p>
+<p>21st February • Certificate • Medal • Awareness Walk</p>
+
+<p class="hero-text">
+This walk is for every woman’s strength — and for every man who stands beside her.
+Join us in celebrating care, courage, and community.
+</p>
+
+<a href="#register" class="btn">Register Now</a>
+
+</div>
+</header>
+<section class="section fade">
+
+<h2>About Women’s Day Walkathon</h2>
+
+<p class="why-text">
+This walk is more than just steps on a road — it’s a journey of solidarity, strength, and hope.
+Every stride supports awareness, wellness, and the collective power of women.
+Join us as we walk together toward a healthier tomorrow.
+</p>
+
+<div class="cards">
+
+<div class="card" style="background-image:url('https://plus.unsplash.com/premium_photo-1682309840959-0f576e9a093e?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cm91dGUlMjBtYXB8ZW58MHx8MHx8fDA%3D')">
+<h3>🏃 Walkathon Route</h3>
+<p>Kantirava → Vidhana Soudha → Chinnaswamy → KR Circle → Hudson Memorial Church</p>
+</div>
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1594824476967-48c8b964273f')">
+<h3>👕 Participant Benefits</h3>
+<p>Free T-shirt, Medical Assistance, Certificate & Medal</p>
+</div>
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d')">
+<h3>🤝 Community & Awareness</h3>
+<p>Walk together for women’s health, equality, and empowerment</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section light fade" id="register">
+
+<h2 style="text-align:center">Walkathon Registration</h2>
+
+<form id="form" class="form">
+
+<input id="name" placeholder="Full Name" required>
+<input id="age" type="number" placeholder="Age" required>
+<input id="phone" placeholder="Phone Number" required>
+<input id="email" type="email" placeholder="Email ID" required>
+
+<textarea id="health" placeholder="Health Issue / Concerns"></textarea>
+<input id="altPhone" placeholder="Alternate Phone">
+
+<button type="button" class="btn" id="sendBtn">Send OTP</button>
+
+<input id="otpInput" class="hidden" placeholder="Enter OTP">
+
+<button type="button" class="btn hidden" id="verifyBtn">Verify OTP</button>
+
+<p id="msg" class="msg"></p>
+
+<button type="submit" class="btn" id="submitBtn" disabled>
+Submit Registration
+</button>
+
+</form>
+
+</section>
+
+<footer>
+<p>© 2026 Women’s Day Walkathon</p>
+</footer>
+
+<script src="walkathon.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stall Registration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+
+body{
+background:linear-gradient(#fff,#fff0f6);
+padding:40px;
+}
+
+.container{
+max-width:520px;
+margin:auto;
+background:white;
+padding:35px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+h2{text-align:center;color:#ff2f7d;margin-bottom:20px}
+
+input,select{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.group{
+margin:15px 0;
+}
+
+.group label{
+display:block;
+margin-bottom:6px;
+font-weight:600;
+}
+
+.options{
+display:flex;
+gap:65px;
+flex-wrap:wrap;
+}
+
+.options label{
+display:flex;
+align-items:center;
+gap:6px;
+
+}
+
+.btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:30px;
+background:#ff2f7d;
+color:white;
+font-weight:600;
+margin-top:10px;
+cursor:pointer;
+}
+
+.hidden{display:none}
+
+.msg{text-align:center;margin-top:10px;color:#ff2f7d;font-weight:600}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Stall Registration</h2>
+
+<input id="name" placeholder="Full Name">
+<input id="phone" placeholder="Phone Number">
+<input id="email" placeholder="Email">
+<input id="alt" placeholder="Alternate Number">
+
+<div class="group">
+<label>Select Stall Type</label>
+<div class="options">
+<label><input type="radio" name="stall" value="job"> Job</label>
+<label><input type="radio" name="stall" value="food"> Food</label>
+<label><input type="radio" name="stall" value="art"> Art</label>
+</div>
+</div>
+
+<div class="group">
+<label>Stall Size</label>
+<div class="options">
+<label><input type="radio" name="size" value="small"> Small</label>
+<label><input type="radio" name="size" value="medium"> Medium</label>
+<label><input type="radio" name="size" value="large"> Large</label>
+</div>
+</div>
+
+<div class="group">
+<label>Select Days</label>
+<div class="options">
+<label><input type="checkbox" value="6"> 6 Mar</label>
+<label><input type="checkbox" value="7"> 7 Mar</label>
+<label><input type="checkbox" value="8"> 8 Mar</label>
+</div>
+</div>
+
+<button class="btn" id="sendOtp">Send OTP</button>
+
+<input id="otp" class="hidden" placeholder="Enter OTP">
+
+<button class="btn hidden" id="verifyOtp">Verify OTP</button>
+
+<button class="btn" id="submit" disabled>Submit</button>
+
+<div class="msg" id="msg"></div>
+
+</div>
+
+<script>
+
+const name=document.getElementById("name");
+const phone=document.getElementById("phone");
+const email=document.getElementById("email");
+const alt=document.getElementById("alt");
+
+const sendOtp=document.getElementById("sendOtp");
+const verifyOtp=document.getElementById("verifyOtp");
+const submit=document.getElementById("submit");
+const otp=document.getElementById("otp");
+const msg=document.getElementById("msg");
+
+let verified=false;
+
+function valRadio(n){
+ return document.querySelector(`input[name=${n}]:checked`);
+}
+
+function valDays(){
+ return [...document.querySelectorAll("input[type=checkbox]:checked")].map(x=>x.value);
+}
+
+/* SEND OTP */
+
+sendOtp.onclick=async()=>{
+
+if(!name.value||!phone.value||!email.value||!valRadio("stall")||!valRadio("size")||valDays().length==0){
+ msg.innerText="Fill all fields";
+ return;
+}
+
+msg.innerText="Sending OTP...";
+
+await fetch("TICKET99_SEND_OTP_URL",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({email:email.value,phone:phone.value})
+});
+
+otp.classList.remove("hidden");
+verifyOtp.classList.remove("hidden");
+sendOtp.style.display="none";
+
+msg.innerText="OTP Sent";
+
+};
+
+/* VERIFY */
+
+verifyOtp.onclick=async()=>{
+
+if(!otp.value){
+ msg.innerText="Enter OTP";
+ return;
+}
+
+msg.innerText="Verifying...";
+
+const r=await fetch("TICKET99_VERIFY_OTP_URL",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({email:email.value,otp:otp.value})
+});
+
+const j=await r.json();
+
+if(j.success){
+ verified=true;
+ submit.disabled=false;
+ msg.innerText="OTP Verified";
+}else{
+ msg.innerText="Invalid OTP";
+}
+
+};
+
+/* SUBMIT */
+
+submit.onclick=async()=>{
+
+if(!verified){
+ msg.innerText="Verify OTP first";
+ return;
+}
+
+const data={
+ eventId:"stall",
+ name:name.value,
+ phone:phone.value,
+ email:email.value,
+ alt:alt.value,
+ stallType:valRadio("stall").value,
+ size:valRadio("size").value,
+ days:valDays()
+};
+
+const r=await fetch("https://YOUR_BACKEND.onrender.com/register",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify(data)
+});
+
+const j=await r.json();
+
+msg.innerText=j.message;
+
+/* RESET */
+
+if(j.message.includes("successful")){
+
+ name.value="";
+ phone.value="";
+ email.value="";
+ alt.value="";
+ otp.value="";
+
+ document.querySelectorAll("input").forEach(i=>i.checked=false);
+
+ otp.classList.add("hidden");
+ verifyOtp.classList.add("hidden");
+ sendOtp.style.display="block";
+
+ submit.disabled=true;
+ verified=false;
+
+ setTimeout(()=>msg.innerText="",3000);
+}
+
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Photography & Videography</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+
+body{
+background:linear-gradient(#fff,#fff0f6);
+padding:40px;
+}
+
+.container{
+max-width:520px;
+margin:auto;
+background:white;
+padding:35px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+h2{text-align:center;color:#ff2f7d;margin-bottom:20px}
+
+input{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.group{margin:15px 0}
+
+.group label{font-weight:600;display:block;margin-bottom:6px}
+
+.options{
+display:flex;
+gap:50px;
+flex-wrap:wrap;
+}
+
+.options label{
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:30px;
+background:#ff2f7d;
+color:white;
+font-weight:600;
+margin-top:10px;
+cursor:pointer;
+}
+
+.hidden{display:none}
+.msg{text-align:center;margin-top:10px;color:#ff2f7d;font-weight:600}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Photography & Videography</h2>
+
+<input id="name" placeholder="Full Name">
+<input id="age" type="number" placeholder="Age">
+<input id="phone" placeholder="Phone Number">
+<input id="email" placeholder="Email">
+<input id="altPhone" placeholder="Alternate Number">
+
+<div class="group">
+<label>Select Type</label>
+<div class="options">
+<label><input type="checkbox" value="photo"> Photography</label>
+<label><input type="checkbox" value="video"> Videography</label>
+</div>
+</div>
+
+<div class="group">
+<label>Category</label>
+<div class="options">
+<label><input type="radio" name="category" value="street"> Street</label>
+<label><input type="radio" name="category" value="event"> Event</label>
+<label><input type="radio" name="category" value="candid"> Candid</label>
+</div>
+</div>
+
+<button class="btn" id="sendBtn">Send OTP</button>
+
+<input id="otpInput" class="hidden" placeholder="Enter OTP">
+
+<button class="btn hidden" id="verifyBtn">Verify OTP</button>
+
+<button class="btn" id="submitBtn" disabled>Submit</button>
+
+<div class="msg" id="msg"></div>
+
+</div>
+
+<script>
+
+const EVENT_ID="media";
+
+const name=document.getElementById("name");
+const age=document.getElementById("age");
+const phone=document.getElementById("phone");
+const email=document.getElementById("email");
+const altPhone=document.getElementById("altPhone");
+
+const sendBtn=document.getElementById("sendBtn");
+const verifyBtn=document.getElementById("verifyBtn");
+const submitBtn=document.getElementById("submitBtn");
+const otpInput=document.getElementById("otpInput");
+const msg=document.getElementById("msg");
+
+let otpVerified=false;
+
+function getTypes(){
+ return [...document.querySelectorAll("input[type=checkbox]:checked")].map(x=>x.value);
+}
+
+function getCategory(){
+ const r=document.querySelector("input[name=category]:checked");
+ return r?r.value:null;
+}
+
+function allFilled(){
+ return name.value && age.value && phone.value && email.value && getTypes().length>0 && getCategory();
+}
+
+/* SEND OTP */
+
+sendBtn.onclick=async()=>{
+
+if(!allFilled()){
+ msg.innerText="Fill all fields";
+ return;
+}
+
+await fetch("TICKET99_SEND_OTP_URL",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({email:email.value,phone:phone.value})
+});
+
+otpInput.classList.remove("hidden");
+verifyBtn.classList.remove("hidden");
+sendBtn.style.display="none";
+
+msg.innerText="OTP Sent";
+
+};
+
+/* VERIFY */
+
+verifyBtn.onclick=async()=>{
+
+const r=await fetch("TICKET99_VERIFY_OTP_URL",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({email:email.value,otp:otpInput.value})
+});
+
+const j=await r.json();
+
+if(j.success){
+ otpVerified=true;
+ submitBtn.disabled=false;
+ msg.innerText="OTP Verified";
+}else msg.innerText="Invalid OTP";
+
+};
+
+/* SUBMIT */
+
+submitBtn.onclick=async()=>{
+
+if(!otpVerified)return;
+
+const data={
+ eventId:EVENT_ID,
+ name:name.value,
+ age:age.value,
+ phone:phone.value,
+ email:email.value,
+ altPhone:altPhone.value,
+ mediaType:getTypes(),
+ category:getCategory()
+};
+
+const r=await fetch("https://YOUR_BACKEND.onrender.com/register",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify(data)
+});
+
+const j=await r.json();
+
+msg.innerText=j.message;
+
+if(j.message.includes("successful")){
+
+ document.querySelectorAll("input").forEach(i=>{
+  if(i.type=="checkbox"||i.type=="radio") i.checked=false;
+  else i.value="";
+ });
+
+ otpInput.classList.add("hidden");
+ verifyBtn.classList.add("hidden");
+ sendBtn.style.display="block";
+
+ submitBtn.disabled=true;
+ otpVerified=false;
+
+ setTimeout(()=>msg.innerText="",3000);
+}
+
+};
+
+</script>
+
+</body>
+</html>
