@@ -467,3 +467,19 @@ font-size:30px;
 width:90%;
 }
 }
+
+/* MOBILE DESKTOP MODE — DESKTOP NOT TOUCHED */
+
+@media screen and (max-width:768px){
+
+html{
+  width:1200px;
+}
+
+body{
+  zoom:0.7;
+  transform-origin: top left;
+}
+
+}
+
