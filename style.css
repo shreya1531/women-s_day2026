@@ -6,9 +6,12 @@ font-family:Poppins,sans-serif;
 }
 
 body{
+width:1200px;
+margin:auto;
 overflow-x:hidden;
 background:linear-gradient(to bottom,#ff4b8b 0%,#ff6fa8 35%,#ff9fc3 65%,#ffd6e6 100%);
 }
+
 
 .header{
 position:absolute;
@@ -467,3 +470,10 @@ font-size:30px;
 width:90%;
 }
 }
+
+@media(max-width:768px){
+ body{
+  zoom:0.7;
+ }
+}
+
