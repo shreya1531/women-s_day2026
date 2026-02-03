@@ -31,7 +31,7 @@ justify-content:center;
 align-items:center;
 text-align:center;
 color:white;
-/*padding-top:320px;*/
+padding-top:320px;
 position:relative;
 }
 
@@ -467,48 +467,3 @@ font-size:30px;
 width:90%;
 }
 }
-
-
-
-
-
-
-
-
-
-@media(max-width:768px){
-
-.hero{
-min-height:95vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:0 !important;
-}
-
-.hero-content{
-max-width:640px;
-padding:0 15px;
-}
-
-.hero-content h1{
-font-size:32px;
-}
-
-.hero-content p{
-font-size:14px;
-}
-
-.logo img{
-height:120px;
-}
-
-.year-overlay{
-left:50%;
-bottom:5%;
-font-size:28px;
-}
-
-}
-
-
