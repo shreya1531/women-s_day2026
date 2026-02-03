@@ -10,17 +10,40 @@ overflow-x:hidden;
 background:linear-gradient(to bottom,#ff4b8b 0%,#ff6fa8 35%,#ff9fc3 65%,#ffd6e6 100%);
 }
 
+/* HEADER */
+
 .header{
-position:absolute;
+position:fixed;
 top:0;
+left:0;
 width:100%;
-z-index:10;
+padding:12px 20px;
+background:rgba(255,255,255,.85);
+backdrop-filter:blur(8px);
+z-index:1000;
 }
 
-.logo img{
-height:250px;
-object-fit:contain;
+.logo-text{
+margin:0;
+padding:0;
 }
+
+.brand-main{
+font-size:clamp(16px,4vw,26px);
+font-weight:700;
+letter-spacing:3px;
+color:#ff2f7d;
+}
+
+.brand-sub{
+font-size:clamp(10px,2.5vw,18px);
+font-weight:500;
+letter-spacing:4px;
+color:#555;
+margin-left:0;
+}
+
+/* HERO */
 
 .hero{
 min-height:100vh;
@@ -31,7 +54,7 @@ justify-content:center;
 align-items:center;
 text-align:center;
 color:white;
-padding-top:320px;
+padding-top:120px;
 position:relative;
 }
 
@@ -49,64 +72,67 @@ background:linear-gradient(to bottom,rgba(255,255,255,0),#ff6fa8);
 max-width:90%;
 }
 
-
 .hero-content h1{
-font-size:60px;
+font-size:clamp(26px,5vw,60px);
+line-height:1.2;
 }
 
 .hero-content p{
-margin:15px 0;
-font-size:18px;
+margin:10px 0;
+font-size:clamp(13px,2.5vw,18px);
 }
 
-.hero-content button{
-padding:14px 35px;
-border:none;
-border-radius:30px;
-background:white;
-color:#ff2f7d;
-font-weight:600;
-cursor:pointer;
-}
 .year-overlay{
-position:absolute;
-left:86%;
-bottom:8%;
-transform:translateX(-50%);
-font-size:52px;     /* matches March */
+margin-top:15px;
+font-size:clamp(22px,4vw,52px);
 font-weight:400;
 color:#c2185b;
-font-family:Poppins;
-letter-spacing:1px;
+opacity:.6;
+position:relative;
 }
 
+/* TOP NAV */
 
-.scroll-section{
-height:120vh;
+.top-nav{
+position:absolute;
+top:15px;
+right:20px;
+z-index:9999;
 }
 
-.explore-btn{
-display:inline-block;
-padding:14px 35px;
-border-radius:30px;
-background:white;
+.top-nav a{
+display:flex;
+align-items:center;
+gap:8px;
 color:#ff2f7d;
 font-weight:600;
 text-decoration:none;
-cursor:pointer;
+padding:10px 24px;
+border-radius:40px;
+background:white;
+box-shadow:0 12px 30px rgba(233,30,99,.45);
+transition:.3s ease;
+}
+
+.top-nav a:hover{
+transform:translateY(-3px);
+box-shadow:0 20px 40px rgba(233,30,99,.6);
+}
+
+/* SCROLL SECTION */
+
+.scroll-section{
+padding:80px 0;
 }
 
 .sticky{
-position:sticky;
-top:0;
-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
 }
 
 .title{
-font-size:42px;
+font-size:clamp(26px,4vw,42px);
 margin-bottom:20px;
 animation:fadeUp 1s ease forwards;
 }
@@ -115,29 +141,22 @@ animation:fadeUp 1s ease forwards;
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
-}
-.manymore{
-margin-top:30px;
-font-size:40px;
-opacity:0;
-transform:scale(.9);
-transition:.5s ease;
-text-align:center;
-width:100%;
 }
 
+/* CARDS */
 
 .cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:20px;
+width:90vw;
+max-width:900px;
+margin-top:25px;
 }
 
 .card{
-width:180px;
-height:120px;
+width:100%;
+height:140px;
 border-radius:20px;
 display:flex;
 align-items:center;
@@ -168,18 +187,15 @@ transform:scale(1);
 .mother{background-image:url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e");}
 .visionary{background-image:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");}
 
+/* MANY MORE */
+
 .manymore{
-margin-top:30px;
-font-size:40px;
-opacity:0;
-transform:scale(.9);
-transition:.5s ease;
+margin-top:25px;
+font-size:clamp(20px,4vw,40px);
+opacity:.7;
 }
 
-.manymore.show{
-opacity:1;
-transform:scale(1);
-}
+/* EVENTS */
 
 .events-section{
 padding:80px 20px;
@@ -187,12 +203,13 @@ text-align:center;
 }
 
 .events-title{
-font-size:40px;
+font-size:clamp(26px,4vw,40px);
 margin-bottom:40px;
 }
 
 .events-container{
 display:flex;
+flex-wrap:wrap;
 justify-content:center;
 gap:30px;
 }
@@ -238,125 +255,7 @@ font-weight:600;
 color:#ff2f7d;
 }
 
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:none;}
-}
-
-
-@media(max-width:768px){
-
-.hero-content h1{
-font-size:36px;
-}
-
-.cards{
-flex-direction:column;
-}
-
-.manymore{
-font-size:26px;
-}
-
-.events-container{
-flex-direction:column;
-align-items:center;
-}
-
-.logo img{
-height:120px;
-}
-
-}
-
-
-.top-nav{
-position:absolute;
-top:35px;
-right:40px;
-z-index:9999;
-}
-
-.top-nav a{
-display:flex;
-align-items:center;
-gap:8px;
-color:#ff2f7d;
-font-weight:600;
-text-decoration:none;
-padding:12px 28px;
-border-radius:40px;
-background:linear-gradient(135deg,white,white);
-box-shadow:0 12px 30px rgba(233,30,99,.45);
-cursor:pointer;
-transition:.3s ease;
-}
-
-.top-nav a:hover{
-transform:translateY(-3px);
-box-shadow:0 20px 40px rgba(233,30,99,.6);
-}
-
-
-.site-footer{
-background:#222;
-color:white;
-padding:50px 20px;
-text-align:center;
-}
-
-.footer-content{
-max-width:900px;
-margin:auto;
-}
-
-.site-footer h3{
-color:#ff2f7d;
-margin-bottom:10px;
-}
-
-.site-footer p{
-color:#ccc;
-line-height:1.6;
-margin:6px 0;
-}
-
-.footer-contact{
-margin-top:15px;
-font-weight:600;
-}
-
-.footer-copy{
-margin-top:20px;
-font-size:14px;
-opacity:.7;
-}
-
-
-.logo-text{
-  text-align: left;
-  margin-top: 10px;
-  font-family: 'Poppins', sans-serif;
-  padding-left: 40px;
-  margin: 40px;
-}
-
-.brand-main{
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: #ff2f7d;
-}
-
-.brand-sub{
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 4px;
-  margin-top: -4px;
-  color: #555;
-  margin-left: 100px;
-}
-
+/* ABOUT */
 
 .about-section{
 padding:100px 20px;
@@ -375,31 +274,7 @@ box-shadow:0 20px 40px rgba(0,0,0,.2);
 border:1px solid rgba(255,255,255,.4);
 }
 
-.about-box h2{
-color:#c2185b;
-font-size:36px;
-margin-bottom:20px;
-}
-
-.about-box p{
-color:#444;
-line-height:1.8;
-font-size:16px;
-margin-bottom:12px;
-}
-
-/* liquid responsive */
-@media(max-width:768px){
-
-.about-box{
-padding:30px 20px;
-}
-
-.about-box h2{
-font-size:28px;
-}
-}
-
+/* TEAM */
 
 .team-section{
 padding:100px 20px;
@@ -407,7 +282,7 @@ text-align:center;
 }
 
 .team-title{
-font-size:40px;
+font-size:clamp(26px,4vw,40px);
 margin-bottom:50px;
 color:#c2185b;
 }
@@ -436,36 +311,40 @@ transition:.4s ease;
 transform:translateY(-10px);
 }
 
-.team-card h3{
+/* FOOTER */
+
+.site-footer{
+background:#222;
+color:white;
+padding:50px 20px;
+text-align:center;
+}
+
+.footer-content{
+max-width:900px;
+margin:auto;
+}
+
+.site-footer h3{
 color:#ff2f7d;
-margin-bottom:6px;
-font-size:20px;
+margin-bottom:10px;
 }
 
-.team-card span{
-display:block;
-font-size:13px;
-letter-spacing:1px;
-color:#666;
-margin-bottom:12px;
-}
-
-.team-card p{
-font-size:14px;
-color:#444;
+.site-footer p{
+color:#ccc;
 line-height:1.6;
+margin:6px 0;
 }
 
-/* mobile liquid layout */
-@media(max-width:768px){
-
-.team-title{
-font-size:30px;
+.footer-copy{
+margin-top:20px;
+font-size:14px;
+opacity:.7;
 }
 
-.team-card{
-width:90%;
-}
-}
+/* ANIMATION */
 
-
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:none;}
+}
