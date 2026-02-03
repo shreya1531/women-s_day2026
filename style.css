@@ -469,4 +469,90 @@ width:90%;
 }
 
 
+/* ================= MOBILE HERO FIX (LIKE WALKATHON PAGE) ================= */
+
+@media(max-width:768px){
+
+/* HERO */
+
+.hero{
+min-height:95vh;
+padding-top:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.hero-content{
+max-width:640px;
+padding:0 15px;
+}
+
+/* LOGO */
+
+.logo img{
+height:120px;
+}
+
+/* TEXT */
+
+.hero-content h1{
+font-size:32px;
+}
+
+.hero-content p{
+font-size:14px;
+}
+
+/* YEAR */
+
+.year-overlay{
+left:50%;
+bottom:5%;
+font-size:32px;
+}
+
+/* CARDS */
+
+.cards{
+flex-direction:column;
+}
+
+.card{
+width:90%;
+height:140px;
+}
+
+/* EVENTS */
+
+.events-container{
+flex-direction:column;
+align-items:center;
+}
+
+/* ABOUT */
+
+.about-section{
+padding:60px 15px;
+}
+
+.about-box{
+padding:30px 20px;
+}
+
+/* TEAM */
+
+.team-section{
+padding:60px 15px;
+}
+
+.team-card{
+width:90%;
+}
+
+}
+
+
+
 
