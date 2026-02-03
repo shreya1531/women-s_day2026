@@ -467,3 +467,25 @@ font-size:30px;
 width:90%;
 }
 }
+
+@media(max-width:768px){
+
+.hero{
+padding-top:0;
+min-height:100vh;
+}
+
+.logo img{
+height:120px;
+}
+
+.hero-content{
+padding:0 15px;
+}
+
+.hero-content h1{
+font-size:36px;
+}
+
+}
+
