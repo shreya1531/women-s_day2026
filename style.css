@@ -31,10 +31,9 @@ justify-content:center;
 align-items:center;
 text-align:center;
 color:white;
-padding-top:140px;
+padding-top:320px;
 position:relative;
 }
-
 
 .hero::after{
 content:"";
@@ -69,26 +68,22 @@ color:#ff2f7d;
 font-weight:600;
 cursor:pointer;
 }
-
 .year-overlay{
-position:relative;
-left:auto;
-bottom:auto;
-transform:none;
-margin-top:15px;
-font-size:clamp(22px,4vw,52px);
+position:absolute;
+left:86%;
+bottom:8%;
+transform:translateX(-50%);
+font-size:52px;     /* matches March */
 font-weight:400;
 color:#c2185b;
+font-family:Poppins;
 letter-spacing:1px;
-opacity:.6;
 }
-
 
 
 .scroll-section{
-padding:80px 0;
+height:120vh;
 }
-
 
 .explore-btn{
 display:inline-block;
@@ -102,6 +97,9 @@ cursor:pointer;
 }
 
 .sticky{
+position:sticky;
+top:0;
+height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -131,17 +129,14 @@ width:100%;
 
 
 .cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:20px;
-width:90vw;
-max-width:900px;
-margin-top:25px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
 }
 
-
 .card{
-width:100%;
+width:180px;
 height:120px;
 border-radius:20px;
 display:flex;
