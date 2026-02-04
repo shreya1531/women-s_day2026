@@ -112,20 +112,54 @@ font-size:52px;
 color:#c2185b;
 }
 
-/* WOMAN IS */
+.scroll-section{
+padding:120px 20px;
+text-align:center;
+}
 
-.scroll-section{min-height:120vh;
-animation:fadeUp .8s ease both;
-margin-top: -40px;}
+.cards{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
 
-.sticky{
-position:sticky;
-top:0;
-height:100vh;
+.card{
+width:180px;
+height:120px;
+border-radius:20px;
 display:flex;
 align-items:center;
 justify-content:center;
+font-weight:bold;
+color:white;
+background-size:cover;
+background-position:center;
+box-shadow:0 20px 40px rgba(0,0,0,.2);
+opacity:0;
+transform:scale(.7);
+transition:.6s ease;
 }
+
+.card.show{
+opacity:1;
+transform:scale(1);
+}
+
+.manymore{
+margin-top:30px;
+font-size:40px;
+opacity:0;
+transform:scale(.9);
+transition:.6s ease;
+}
+
+.manymore.show{
+opacity:1;
+transform:scale(1);
+}
+
+
 
 
 
@@ -173,9 +207,14 @@ transform:scale(1);
 margin-top:30px;
 font-size:40px;
 opacity:0;
+transform:scale(.9);
 transition:.4s ease;
 }
 
+.manymore.show{
+opacity:1;
+transform:scale(1);
+}
 
 /* MOBILE GAP FIX */
 @media(max-width:600px){
@@ -677,62 +716,75 @@ A Women’s Day celebration dedicated to strength, creativity, and community.
 </div>
 
 </footer>
-
 <script>
-
-
 const section = document.querySelector('.scroll-section');
 const cards = [...document.querySelectorAll('.card')];
 const manymore = document.querySelector('.manymore');
 
 const center = Math.floor(cards.length / 2);
 
-// RESET ALL
-cards.forEach(card => {
-  card.style.opacity = 0;
-  card.style.transform = 'scale(.7)';
-});
+let isPlaying = false;
 
-// Show center initially
-cards[center].style.opacity = 1;
-cards[center].style.transform = 'scale(1)';
+function resetCards() {
+  cards.forEach(card => {
+    card.style.opacity = 0;
+    card.style.transform = 'scale(.7)';
+  });
 
-window.addEventListener('scroll', () => {
+  cards[center].style.opacity = 1;
+  cards[center].style.transform = 'scale(1)';
 
-  const start = section.offsetTop;
-  const end = start + section.offsetHeight - window.innerHeight;
+  manymore.style.opacity = 0;
+}
 
-  let progress = (window.scrollY - start) / (end - start);
-  progress = Math.max(0, Math.min(1, progress));
-
-  let step = Math.floor(progress * (center + 1));
+function revealCards() {
+  if (isPlaying) return;
+  isPlaying = true;
 
   cards.forEach((card, i) => {
-
-    if (Math.abs(i - center) <= step) {
+    setTimeout(() => {
       card.style.opacity = 1;
       card.style.transform = 'scale(1)';
+    }, Math.abs(i - center) * 200);
+  });
+
+  setTimeout(() => {
+    manymore.style.opacity = 1;
+  }, 1200);
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+      resetCards();
+
+      // tiny delay ensures SAME behavior every time
+      setTimeout(() => {
+        revealCards();
+      }, 150);
     } else {
-      card.style.opacity = 0;
-      card.style.transform = 'scale(.7)';
+      // fully reset when leaving
+      isPlaying = false;
+      resetCards();
     }
 
   });
-
-  if (step >= center) {
-    manymore.style.opacity = 1;
-    manymore.style.transform = 'scale(1)';
-  } else {
-    manymore.style.opacity = 0;
-    manymore.style.transform = 'scale(.9)';
-  }
-
+}, {
+  threshold: 0.6
 });
 
+observer.observe(section);
 
-
-
+// initial state
+resetCards();
 </script>
+
+
+
+
+
+
 
 </body>
 </html>
