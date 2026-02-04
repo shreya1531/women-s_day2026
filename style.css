@@ -23,24 +23,24 @@ object-fit:contain;
 }
 
 .hero{
-  height:100svh;   /* better than 100vh on mobile */
-  background:
-    linear-gradient(rgba(255,47,125,.25),rgba(255,47,125,.25)),
-    url("https://images.indianexpress.com/2024/03/ie.com-thumbnails-3.jpg");
+height:100vh;
+background:
+linear-gradient(rgba(255,47,125,.25),rgba(255,47,125,.25)),
+url("https://images.indianexpress.com/2024/03/ie.com-thumbnails-3.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 
-  background-size:contain;
-  background-position:center;
-  background-repeat:no-repeat;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
-  position:relative;
-  padding:0 20px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+position:relative;
+padding:0 20px;
 }
+
 
 
 
@@ -78,12 +78,13 @@ font-weight:600;
 cursor:pointer;
 }
 .year-overlay{
-position:relative;
 margin-top:15px;
+position:relative;
 left:auto;
 bottom:auto;
 transform:none;
 }
+
 
 
 
