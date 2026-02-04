@@ -474,3 +474,48 @@ font-size:30px;
 width:90%;
 }
 }
+
+
+
+
+/* MOBILE FIX – does NOT affect desktop */
+
+@media(max-width:768px){
+
+.hero{
+  padding-top:120px;   /* instead of 320px */
+  min-height:70vh;
+}
+
+.year-overlay{
+  position:relative;
+  left:auto;
+  bottom:auto;
+  transform:none;
+  margin-top:10px;
+  font-size:28px;
+}
+
+.scroll-section{
+  height:auto;
+}
+
+.sticky{
+  position:relative;
+  height:auto;
+}
+
+.cards{
+  flex-direction:column;
+}
+
+.card{
+  width:90%;
+}
+
+.brand-sub{
+  margin-left:0;
+}
+
+}
+
