@@ -23,17 +23,24 @@ object-fit:contain;
 }
 
 .hero{
-min-height:100vh;
-background:linear-gradient(rgba(255,47,125,.25),rgba(255,47,125,.25)),
-url("https://images.indianexpress.com/2024/03/ie.com-thumbnails-3.jpg") center/cover no-repeat;
+height:100vh;
+background:
+linear-gradient(rgba(255,47,125,.25),rgba(255,47,125,.25)),
+url("https://images.indianexpress.com/2024/03/ie.com-thumbnails-3.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
 color:white;
-padding-top:320px;
 position:relative;
+padding:0 20px;
 }
+
 
 .hero::after{
 content:"";
@@ -69,15 +76,11 @@ font-weight:600;
 cursor:pointer;
 }
 .year-overlay{
-position:absolute;
-left:86%;
-bottom:8%;
-transform:translateX(-50%);
-font-size:52px;     /* matches March */
-font-weight:400;
-color:#c2185b;
-font-family:Poppins;
-letter-spacing:1px;
+margin-top:15px;
+position:relative;
+left:auto;
+bottom:auto;
+transform:none;
 }
 
 
